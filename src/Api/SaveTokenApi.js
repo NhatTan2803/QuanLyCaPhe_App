@@ -4,7 +4,7 @@ const SaveTokenApi = async (token) => {
     try {
         await AsyncStorage.setItem('@token', token);
         console.log('luu thanh cong token')
-
+            // version sau khi them file git 
         console.log(AsyncStorage.getItem('@token'))
     } catch (e) {
         return e;
