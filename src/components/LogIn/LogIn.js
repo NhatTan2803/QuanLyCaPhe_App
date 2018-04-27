@@ -12,17 +12,25 @@ export default class LogIn extends Component {
             password: '',
         }
     }
-
+    gotoMain() {
+        const { navigator } = this.props;
+        navigator.push({ name: 'MAIN' })
+    }
     onLogIn() {
         const { email, password } = this.state;
         console.log(email, password)
         LogInApi(email, password)
             .then(resJSON => {
+                console.log('vo ',resJSON)
                 if (resJSON.status === 'success') {
                     console.log(resJSON.token)
                     //Golbal.onLogIn(resJSON.user)
-                    //this.props.gotoMain();
+                    this.gotoMain();
                     SaveTokenApi(resJSON.token);
+                }
+                if (resJSON.status === 'error') {
+                    console.log('sai tai khoan')
+
                 }
             })
             .catch(err => console.log(err))

@@ -35,38 +35,39 @@ class Main extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selectedTab: 'home',
+            selectedTab: 'Info',
             types: [],
             topProducts: [],
             cartArray: []
         };
 
     }
-    // componentDidMount() {
-    //     initData()
-    //         .then(resJSON => {
-    //             const { type, product } = resJSON
-    //             this.setState({
-    //                 types: type,
-    //                 topProducts: product,
+    componentDidMount() {
+        
+        // initData()
+        //     .then(resJSON => {
+        //         const { type, product } = resJSON
+        //         this.setState({
+        //             types: type,
+        //             topProducts: product,
 
-    //             })
-    //         });
-    //     getCart()
-    //         .then(cartArray => this.setState({ cartArray }));
-    // }
+        //         })
+        //     });
+        
+    }
 
     render() {
         const { iconStyle } = styles;
+        const {navigator} = this.props;
         const { types, selectedTab, topProducts, cartArray } = this.state;
         return (
             <View style={{ flex: 1, backgroundColor: '#DBDBD8' }}>
                  <Header /> 
                 <TabNavigator>
                     <TabNavigator.Item
-                        selected={selectedTab === 'home'}
+                        selected={selectedTab === 'Home'}
                         title="Home"
-                        onPress={() => this.setState({ selectedTab: 'home' })}
+                        onPress={() => this.setState({ selectedTab: 'Home' })}
                          renderIcon={() => <Image source={Homei} style={iconStyle} />}
                          //renderSelectedIcon={() => <Image source={homeIconS} style={iconStyle} />}
                         selectedTitleStyle={{ color: '#34B089', fontFamily: 'Avenir' }}
@@ -102,7 +103,7 @@ class Main extends Component {
                         //renderSelectedIcon={() => <Image source={contactIconS} style={iconStyle} />}
                         selectedTitleStyle={{ color: '#34B089', fontFamily: 'Avenir' }}
                     >
-                        <Info />
+                        <Info navigator={navigator}/>
                     </TabNavigator.Item>
                 </TabNavigator>
             </View>
