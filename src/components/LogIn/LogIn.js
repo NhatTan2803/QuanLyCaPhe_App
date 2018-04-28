@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, TextInput, Alert } from 'react-native';
 import LogInApi from '../../Api/LogInApi';
-import Golbal from '../Golbal';
+import global from '../global';
 import SaveTokenApi from '../../Api/SaveTokenApi';
 
 export default class LogIn extends Component {
@@ -16,26 +16,23 @@ export default class LogIn extends Component {
         const { navigator } = this.props;
         navigator.push({ name: 'MAIN' })
     }
-    onLogIn() {
+    pressLogIn() {
         const { email, password } = this.state;
-        console.log(email, password)
         LogInApi(email, password)
             .then(resJSON => {
                 console.log('vo ',resJSON)
                 if (resJSON.status === 'success') {
-                    console.log(resJSON.token)
-                    //Golbal.onLogIn(resJSON.user)
+                    console.log(resJSON.status)
+                    console.log(resJSON.user)
+                    //global.onLogIn(resJSON.user)
                     this.gotoMain();
+                    console.log('qua duoc global')
                     SaveTokenApi(resJSON.token);
                 }
-                if (resJSON.status === 'error') {
-                    console.log('sai tai khoan')
-
-                }
+                
             })
             .catch(err => console.log(err))
     }
-
     onSuccess() {
         Alert.alert(
             'Information',
@@ -91,7 +88,7 @@ export default class LogIn extends Component {
                         onChangeText={text => this.setState({ password: text })}
                         secureTextEntry
                     />
-                    <TouchableOpacity style={bigButton} onPress={this.onLogIn.bind(this)}>
+                    <TouchableOpacity style={bigButton} onPress={this.pressLogIn.bind(this)}>
                         <Text style={buttonText}>SIGN IN NOW</Text>
                     </TouchableOpacity>
 

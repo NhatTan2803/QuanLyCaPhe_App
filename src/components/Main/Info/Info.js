@@ -7,16 +7,23 @@ import phoneIcon from '../../../media/appIcon/phone.png';
 import mailIcon from '../../../media/appIcon/mail.png';
 import messageIcon from '../../../media/appIcon/message.png';
 import locationIcon from '../../../media/appIcon/location.png';
+// import global from '../../global';
 
 class Info extends Component {
+    constructor(props){
+        super(props);
+        // global.onLogIn = this.onRemoveToken.bind(this)
+    }
     gotoLogin(){
         const {navigator} = this.props;
         navigator.push('LOGIN');
     }
     onRemoveToken(){
         AsyncStorage.removeItem('@token');
+//global.onLogIn(null)
         const {navigator} = this.props;
         navigator.pop('LOGIN')
+        console.log(global.onLogIn)
     }
     render() {
         const {

@@ -13,8 +13,7 @@ class Drink extends Component {
                 initialRoute={{ name: 'DRINK_VIEW' }}
                 renderScene={(route, navigator) => {
                     switch (route.name) {
-                        case 'DRINK_VIEW': return <DrinkView navigator={navigator}  />;
-                        case 'LIST_DRINK': return <ListDrink navigator={navigator} />;
+                        case 'DRINK_VIEW': return <DrinkView navigator={navigator} drink={drink}/>;
                         default: return <DetailDrink navigator={navigator} />;
                     }
                 }}
