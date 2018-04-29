@@ -79,6 +79,7 @@ export default class LogIn extends Component {
                     <TextInput
                         style={inputStyle}
                         placeholder="Enter your email"
+                        underlineColorAndroid="transparent"
                         value={email}
                         onChangeText={text => this.setState({ email: text })}
                     />
@@ -86,6 +87,7 @@ export default class LogIn extends Component {
                         style={inputStyle}
                         placeholder="Enter your password"
                         onChangeText={text => this.setState({ password: text })}
+                        underlineColorAndroid="transparent"
                         secureTextEntry
                     />
                     <TouchableOpacity style={bigButton} onPress={this.pressLogIn.bind(this)}>

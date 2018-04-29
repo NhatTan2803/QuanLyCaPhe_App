@@ -6,6 +6,8 @@ import {
 
 import sp1 from '../../../media/temp/54.jpg';
 
+const url = 'http://localhost:1337/uploads/imgDrink/'
+
 function toTitleCase(str) {
     return str.replace(/\w\S*/g, txt => txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase());
 }
@@ -30,7 +32,7 @@ class DrinkView extends Component {
                     dataSource={new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 }).cloneWithRows(drinks)}
                     renderRow={drinkItem => (
                         <View style={productStyle}>
-                            <Image source={sp1} style={productImage} />
+                            <Image source={{uri:`${url}${drinkItem.drink_avatar}`}} style={productImage} />
                             <View style={[mainRight]}>
                                 <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
                                     <Text style={txtName}>{toTitleCase(drinkItem.drink_name)}</Text>
@@ -39,7 +41,7 @@ class DrinkView extends Component {
                                     </TouchableOpacity>
                                 </View>
                                 <View>
-                                    <Text style={txtPrice}>{drinkItem.drink_price}$</Text>
+                                    <Text style={txtPrice}>{drinkItem.drink_price}VNĐ</Text>
                                 </View>
                                 <View style={productController}>
                                     <View style={numberOfProduct}>
