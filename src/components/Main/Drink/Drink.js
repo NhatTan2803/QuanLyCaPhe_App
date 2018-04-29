@@ -8,12 +8,13 @@ import DetailDrink from '../Drink/DetailDrink/DetailDrink';
 
 class Drink extends Component {
     render() {
+        const { drinks } = this.props;
         return (
             <Navigator
                 initialRoute={{ name: 'DRINK_VIEW' }}
                 renderScene={(route, navigator) => {
                     switch (route.name) {
-                        case 'DRINK_VIEW': return <DrinkView navigator={navigator} drink={drink}/>;
+                        case 'DRINK_VIEW': return <DrinkView navigator={navigator} drinks={drinks} />;
                         default: return <DetailDrink navigator={navigator} />;
                     }
                 }}

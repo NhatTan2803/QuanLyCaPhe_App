@@ -1,4 +1,4 @@
-const  initDataprofile= () => (
+const  initDataprofile= (token) => (
     
     fetch(`http://localhost:1337/users/profile`,
         {
@@ -6,7 +6,7 @@ const  initDataprofile= () => (
             headers: {
                 'Content-Type': 'application/json',
                 Accept: 'application/json',
-                'token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6IjJAZ21haWwuY29tIiwiaWF0IjoxNTI0OTM1NTg0fQ.FziyAFXLrgr_XkR0g62OOPyw5lM0OP7eWhmGRkkN5ag',
+                'token': token,
             },
         })
         .then(res => res.json())

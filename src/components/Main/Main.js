@@ -22,29 +22,14 @@ import Drinki from '../../media/Tab/drink.png';
 import Staffi from '../../media/Tab/staff.png';
 import Contacti from '../../media/Tab/contact.png';
 
-//import initData from '../../../api/initData';
-
-
-// import homeIconS from '../../../media/appIcon/home.png';
-// import homeIcon from '../../../media/appIcon/home0.png';
-// import cartIconS from '../../../media/appIcon/cart.png';
-// import cartIcon from '../../../media/appIcon/cart0.png';
-// import searchIconS from '../../../media/appIcon/search.png';
-// import searchIcon from '../../../media/appIcon/search0.png';
-// import contactIconS from '../../../media/appIcon/contact.png';
-// import contactIcon from '../../../media/appIcon/contact0.png';
-
-
 class Main extends Component {
     constructor(props) {
         super(props);
         this.state = {
             selectedTab: 'Home',
-            types: [],
             token: null,
             user: [],
-            topProducts: [],
-            cartArray: []
+            drinks: []
         };
         GetTokenApi()
             .then(res => {
@@ -52,53 +37,35 @@ class Main extends Component {
                     token: res
                 })
                 console.log('token trong construc main:', this.state.token)
+                initDataProfile(this.state.token)
+                    .then(res => {
+                        this.setState({
+                            user: res.user,
+                        })
+                        console.log('thong tin nguoi dung:', this.state.user.user_shop_id)
+                        const { token } = this.state;
+                        const { user_shop_id } = this.state.user;
+                        console.log('token va ma shop:', token, user_shop_id)
+                        getDrinkApi(token, user_shop_id)
+                            .then(resJSON => {
+                                this.setState({
+                                    drinks: resJSON.drinks,
+                                })
+                            })
+                            .catch(err => console.log(err));
+                    })
+                    .catch(err => console.log(err))
             })
             .catch(err => console.log('Loi lay du token o Main'))
         console.log(this.state.token)
-
-
     }
-    componentDidMount() {
-
-        // initData()
-        //     .then(resJSON => {
-        //         const { type, product } = resJSON
-        //         this.setState({
-        //             types: type,
-        //             topProducts: product,
-
-        //         })
-        //     });
-        const { token,user } = this.state;
-
-        // initDataProfile(token)
-        // .then(res=>{
-        //     // this.setState({
-        //     //     user:res.user,
-        //     // })
-        //     // console.log('profole nguoi dung trong construc main khoi tao profile:',this.state.user)
-        //     console.log('profile nguoi dung:',res)
-        // })
-        initDataProfile()
-            .then(res => {
-                this.setState({
-                    user: res.user,
-                })
-            })
-            .catch(err => console.log(err))
-
-        getDrinkApi(token,user.user_shop_id )
-            .then(resJSON => console.log('du lieu sau khi get:', resJSON.drinks))
-            .catch(err => console.log(err));
-    }
-
     render() {
-        const {token} = this.state;
+        const { token } = this.state;
         console.log(token)
-        
+
         const { iconStyle } = styles;
         const { navigator } = this.props;
-        const { types, selectedTab, topProducts, cartArray } = this.state;
+        const { types, selectedTab, topProducts, cartArray,drinks } = this.state;
         return (
             <View style={{ flex: 1, backgroundColor: '#DBDBD8' }}>
                 <Header />
@@ -119,7 +86,6 @@ class Main extends Component {
                         onPress={() => this.setState({ selectedTab: 'Staff' })}
                         renderIcon={() => <Image source={Staffi} style={iconStyle} />}
                         //renderSelectedIcon={() => <Image source={cartIconS} style={iconStyle} />}
-                        badgeText={cartArray.length}
                         selectedTitleStyle={{ color: '#34B089', fontFamily: 'Avenir' }}
                     >
                         <Staff cartArray={cartArray} />
@@ -132,7 +98,7 @@ class Main extends Component {
                         //renderSelectedIcon={() => <Image source={searchIconS} style={iconStyle} />}
                         selectedTitleStyle={{ color: '#34B089', fontFamily: 'Avenir' }}
                     >
-                        <Drink />
+                        <Drink drinks={drinks} />
                     </TabNavigator.Item>
                     <TabNavigator.Item
                         selected={selectedTab === 'Info'}
