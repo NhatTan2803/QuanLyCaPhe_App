@@ -13,7 +13,11 @@ import Header from './Header';
 
 import getDrinkApi from '../../Api/getDrinkApi';
 import GetTokenApi from '../../Api/GetTokenApi';
+import getStaffApi from '../../Api/getStaffApi';
 import initDataProfile from '../../Api/initDataProfile';
+import getProfitD from '../../Api/getProfitD';
+import getProfitW from '../../Api/getProfitW';
+import getProfitM from '../../Api/getProfitM';
 
 const { height } = Dimensions.get('window');
 
@@ -29,7 +33,11 @@ class Main extends Component {
             selectedTab: 'Home',
             token: null,
             user: [],
-            drinks: []
+            drinks: [],
+            staffs: [],
+            moneyD: null,
+            moneyW: null,
+            moneyM: null,
         };
         GetTokenApi()
             .then(res => {
@@ -42,7 +50,6 @@ class Main extends Component {
                         this.setState({
                             user: res.user,
                         })
-                        console.log('thong tin nguoi dung:', this.state.user.user_shop_id)
                         const { token } = this.state;
                         const { user_shop_id } = this.state.user;
                         console.log('token va ma shop:', token, user_shop_id)
@@ -53,6 +60,37 @@ class Main extends Component {
                                 })
                             })
                             .catch(err => console.log(err));
+                        getStaffApi(token, user_shop_id)
+                            .then(resJSON => {
+                                this.setState({
+                                    staffs: resJSON.staffs,
+                                })
+                            })
+                            .catch(err => console.log(err));
+                        getProfitD(token, user_shop_id)
+                            .then(res => {
+                                this.setState({
+                                    moneyD: res.money[0]["SUM(bill_total)"]
+                                })
+                                console.log(this.state.moneyD)
+                            })
+                            .catch(err => console.log('loi trong profit'));
+                        getProfitW(token, user_shop_id)
+                            .then(res => {
+                                this.setState({
+                                    moneyW: res.money[0]["SUM(bill_total)"]
+                                })
+                                console.log(this.state.moneyW)
+                            })
+                            .catch(err => console.log('loi trong profit'));
+                        getProfitM(token, user_shop_id)
+                            .then(res => {
+                                this.setState({
+                                    moneyM: res.money[0]["SUM(bill_total)"]
+                                })
+                                console.log(this.state.moneyM)
+                            })
+                            .catch(err => console.log('loi trong profit'));
                     })
                     .catch(err => console.log(err))
             })
@@ -65,7 +103,7 @@ class Main extends Component {
 
         const { iconStyle } = styles;
         const { navigator } = this.props;
-        const { types, selectedTab, topProducts, cartArray,drinks } = this.state;
+        const { selectedTab, drinks, staffs, moneyD, moneyW, moneyM } = this.state;
         return (
             <View style={{ flex: 1, backgroundColor: '#DBDBD8' }}>
                 <Header />
@@ -78,7 +116,7 @@ class Main extends Component {
                         //renderSelectedIcon={() => <Image source={homeIconS} style={iconStyle} />}
                         selectedTitleStyle={{ color: '#34B089', fontFamily: 'Avenir' }}
                     >
-                        <Home types={types} topProducts={topProducts} />
+                        <Home moneyD={moneyD} moneyW={moneyW} moneyM={moneyM} />
                     </TabNavigator.Item>
                     <TabNavigator.Item
                         selected={selectedTab === 'Staff'}
@@ -88,7 +126,7 @@ class Main extends Component {
                         //renderSelectedIcon={() => <Image source={cartIconS} style={iconStyle} />}
                         selectedTitleStyle={{ color: '#34B089', fontFamily: 'Avenir' }}
                     >
-                        <Staff cartArray={cartArray} />
+                        <Staff staffs={staffs} />
                     </TabNavigator.Item>
                     <TabNavigator.Item
                         selected={selectedTab === 'Drink'}

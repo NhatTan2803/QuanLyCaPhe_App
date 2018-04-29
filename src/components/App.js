@@ -32,14 +32,15 @@ export default class App extends Component {
         console.log('trang thai bay gio cua state:', isFristScr)
         return (
             <Navigator
-             initialRoute={{ name: 'LOGIN' }}
+             initialRoute={{ name: 'MAIN' }}
+
             //initialRoute={{ name: 'LOGIN' }}
             renderScene={(route, navigator) => {
                 console.log('trong JSX:',route.name.isFristScr)
                 switch (route.name) {
                     case 'LOGIN': return <LogIn navigator={navigator} />;                    
                     default: return <Main navigator={navigator} />;
-                }
+                }``
             }}
             />
         );

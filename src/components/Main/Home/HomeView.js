@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import P_Day from './P_Day';
 import P_Month from './P_Month';
 import P_Week from './P_Week';
 
 export default class HomeView extends Component {
     render() {
+        const { moneyD, moneyW, moneyM } = this.props
         const { container } = styles;
         return (
-            <View style={container}>
-                <P_Day />
-                <P_Week />
-                <P_Month />
-            </View>
+            <ScrollView style={{ flex: 1 }}>
+                <P_Day moneyD={moneyD} />
+                <P_Week moneyW={moneyW} />
+                <P_Month moneyM={moneyM} />
+            </ScrollView>
         );
     }
 }
