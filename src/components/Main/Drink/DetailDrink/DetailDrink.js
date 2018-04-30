@@ -13,7 +13,7 @@ export default class DetailDrink extends Component {
         navigator.pop();
     }
     render() {
-        const {staff} = this.props;
+        const {drinkItem} = this.props;
         
         const {
             wrapper, cardStyle, header,

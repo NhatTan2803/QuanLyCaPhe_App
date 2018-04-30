@@ -3,23 +3,27 @@ import { View, Text, Image, StyleSheet, Dimensions, TouchableOpacity } from 'rea
 import bannerImage from '../../../media/temp/banner.jpg';
 
 const { width } = Dimensions.get('window');
+import imgCoin from '../../../media/Nen/Tuan.jpg';
 
 export default class Collection extends Component {
     render() {
-        const { wrapper, textStyle, imageStyle } = styles;
-        const {moneyW} = this.props;
+        const { wrapper, textStyle, imageStyle, txtdetail } = styles;
+        const { moneyW } = this.props;
         return (
             <View style={wrapper}>
-                
-                <View style={{ height: 50, justifyContent: 'center', alignItems:'center' }}>
+
+                <View style={{ flex: 1, height: 50, justifyContent: 'center', alignItems: 'center' }}>
                     <Text style={textStyle} >DOANH THU TUẦN</Text>
                 </View>
-                <View style={{ height: 50, justifyContent: 'center',alignItems:'center' }}>
-                    <Text style={textStyle} >{moneyW}$</Text>
+                <View style={{ flex: 8, flexDirection: 'row', justifyContent: 'space-around', alignItems: 'flex-start', }}>
+                    <Image style={imageStyle} source={imgCoin} />
+                    <View style={{ flex: 1, margin: 5, }}>
+                        <Text style={textStyle} >{moneyW}</Text>
+                        <Text style={txtdetail}>Bán chạy nhất: Trà Đào</Text>
+                        <Text style={txtdetail}>Bán được: 2 ly với 84 000 vnđ</Text>
+                        <Text style={txtdetail}>Chiếm: 20% tổng thu tuần</Text>
+                    </View>
                 </View>
-                {/* <TouchableOpacity style={{ flex: 4, justifyContent: 'center' }}>
-                <Text style={{textStyle}}>DOANH THU</Text>
-                </TouchableOpacity> */}
             </View>
         );
     }
@@ -37,15 +41,22 @@ const styles = StyleSheet.create({
         shadowOffset: { width: 0, height: 3 },
         shadowOpacity: 0.2,
         padding: 10,
-        justifyContent:'space-around',
+        justifyContent: 'space-around',
         paddingTop: 0
     },
     textStyle: {
         fontSize: 20,
-        color: '#AFAEAF'
+        color: '#AFAEAF',
+        paddingRight: 10,
     },
     imageStyle: {
-        height: imageHeight, 
-        width: imageWidth
+        height: 120,
+        width: 130,
+    },
+    txtdetail: {
+        color: '#C21C70',
+        fontSize: 15,
+        fontWeight: '400',
+        fontFamily: 'Avenir'
     }
 });
