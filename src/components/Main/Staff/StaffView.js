@@ -13,10 +13,10 @@ function toTitleCase(str) {
 }
 
 class StaffView extends Component {
-    // gotoDetail() {
-    //     const { navigator } = this.props;
-    //     navigator.push({ name: 'PRODUCT_DETAIL' });
-    // }
+    gotoDetailStaff(staff) {
+        const { navigator } = this.props;
+        navigator.push({ name: 'DETAIL_STAFF', staff });
+    }
     render() {
         const { staffs } = this.props;
         const { main, checkoutButton, checkoutTitle, wrapper,
@@ -30,26 +30,26 @@ class StaffView extends Component {
                     contentContainerStyle={main}
                     enableEmptySections
                     dataSource={new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 }).cloneWithRows(staffs)}
-                    renderRow={staffsItem => (
+                    renderRow={staff => (
                         <View style={productStyle}>
-                            <Image source={{uri:`${url}${staffsItem.user_avatar}`}} style={productImage} />
+                            <Image source={{ uri: `${url}${staff.user_avatar}` }} style={productImage} />
                             <View style={[mainRight]}>
                                 <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
-                                    <Text style={txtName}>{toTitleCase(staffsItem.user_name)}</Text>
+                                    <Text style={txtName}>{toTitleCase(staff.user_name)}</Text>
                                     <TouchableOpacity>
                                         <Text style={{ fontFamily: 'Avenir', color: '#969696' }}>X</Text>
                                     </TouchableOpacity>
                                 </View>
                                 <View>
-                                    <Text style={txtPrice}>{staffsItem.user_phone}</Text>
+                                    <Text style={txtPrice}>{staff.user_phone}</Text>
                                 </View>
                                 <View style={productController}>
                                     <View style={numberOfProduct}>
                                         <TouchableOpacity>
-                                            <Text>{staffsItem.user_email}</Text>
+                                            <Text>{staff.user_email}</Text>
                                         </TouchableOpacity>
                                     </View>
-                                    <TouchableOpacity style={showDetailContainer}>
+                                    <TouchableOpacity style={showDetailContainer} onPress={() => { this.gotoDetailStaff(staff) }}>
                                         <Text style={txtShowDetail}>SHOW DETAILS</Text>
                                     </TouchableOpacity>
                                 </View>

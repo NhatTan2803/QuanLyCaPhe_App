@@ -10,6 +10,7 @@ import locationIcon from '../../../media/appIcon/location.png';
 // import global from '../../global';
 
 class Info extends Component {
+    
     constructor(props){
         super(props);
         // global.onLogIn = this.onRemoveToken.bind(this)
@@ -30,7 +31,7 @@ class Info extends Component {
             mapContainer, wrapper, infoContainer,
             rowInfoContainer, imageStyle, infoText, rowInfoContainerSignOut,btnTextSignIn
         } = styles;
-        const {navigator} = this.props;
+        const {navigator, user} = this.props;
         return (
             <View style={wrapper}>
                 <View style={mapContainer}>
@@ -41,19 +42,19 @@ class Info extends Component {
                 <View style={infoContainer}>
                     <View style={rowInfoContainer}>
                         <Image source={locationIcon} style={imageStyle} />
-                        <Text style={infoText}>90 Le Thi Rieng/ Ben Thanh Dist</Text>
+                        <Text style={infoText}>{user.user_address}</Text>
                     </View>
                     <View style={rowInfoContainer}>
                         <Image source={phoneIcon} style={imageStyle} />
-                        <Text style={infoText}>(+84) 01694472176</Text>
+                        <Text style={infoText}>{user.user_phone}</Text>
                     </View>
                     <View style={rowInfoContainer}>
                         <Image source={mailIcon} style={imageStyle} />
-                        <Text style={infoText}>1@gmail.com</Text>
+                        <Text style={infoText}>{user.user_Idcard}</Text>
                     </View>
                     <View style={[rowInfoContainer, { borderBottomWidth: 0 }]}>
                         <Image source={messageIcon} style={imageStyle} />
-                        <Text style={infoText}>(+84) 09877067707</Text>
+                        <Text style={infoText}>{user.user_email}</Text>
                     </View>
                     <View style={[rowInfoContainerSignOut, { borderBottomWidth: 0 }]}>
                         <TouchableOpacity onPress={this.onRemoveToken.bind(this)} >

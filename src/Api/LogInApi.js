@@ -7,7 +7,8 @@ const LogInApi = (email, password) => (
         },
         body: JSON.stringify({ email, password })
     })
-        .then(res=> res.json())
+        .then(res => res.json())
+        .catch(err=> console.log('loi login api'))
 );
 
 module.exports = LogInApi;

@@ -18,6 +18,7 @@ export default class LogIn extends Component {
     }
     pressLogIn() {
         const { email, password } = this.state;
+        console.log('mail va pass:', email,password)
         LogInApi(email, password)
             .then(resJSON => {
                 console.log('vo ',resJSON)

@@ -98,7 +98,7 @@ class Main extends Component {
         console.log(this.state.token)
     }
     render() {
-        const { token } = this.state;
+        const { token ,user} = this.state;
         console.log(token)
 
         const { iconStyle } = styles;
@@ -146,7 +146,7 @@ class Main extends Component {
                         //renderSelectedIcon={() => <Image source={contactIconS} style={iconStyle} />}
                         selectedTitleStyle={{ color: '#34B089', fontFamily: 'Avenir' }}
                     >
-                        <Info navigator={navigator} />
+                        <Info navigator={navigator} user={user} />
                     </TabNavigator.Item>
                 </TabNavigator>
             </View>

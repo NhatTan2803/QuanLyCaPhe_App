@@ -13,10 +13,10 @@ function toTitleCase(str) {
 }
 
 class DrinkView extends Component {
-    // gotoDetail() {
-    //     const { navigator } = this.props;
-    //     navigator.push({ name: 'PRODUCT_DETAIL' });
-    // }
+    gotoDetailDrink(drinkItem) {
+        const { navigator } = this.props;
+        navigator.push({ name: 'DETAIL_DRINK', drinkItem });
+    }
     render() {
         const { drinks } = this.props;
         const { main, checkoutButton, checkoutTitle, wrapper,
@@ -32,7 +32,7 @@ class DrinkView extends Component {
                     dataSource={new ListView.DataSource({ rowHasChanged: (r1, r2) => r1 !== r2 }).cloneWithRows(drinks)}
                     renderRow={drinkItem => (
                         <View style={productStyle}>
-                            <Image source={{uri:`${url}${drinkItem.drink_avatar}`}} style={productImage} />
+                            <Image source={{ uri: `${url}${drinkItem.drink_avatar}` }} style={productImage} />
                             <View style={[mainRight]}>
                                 <View style={{ justifyContent: 'space-between', flexDirection: 'row' }}>
                                     <Text style={txtName}>{toTitleCase(drinkItem.drink_name)}</Text>
@@ -53,7 +53,7 @@ class DrinkView extends Component {
                                             <Text>-</Text>
                                         </TouchableOpacity>
                                     </View>
-                                    <TouchableOpacity style={showDetailContainer}>
+                                    <TouchableOpacity style={showDetailContainer} onPress={() => this.gotoDetailDrink(drinkItem)}>
                                         <Text style={txtShowDetail}>SHOW DETAILS</Text>
                                     </TouchableOpacity>
                                 </View>
@@ -62,7 +62,7 @@ class DrinkView extends Component {
                     )}
                 />
                 <TouchableOpacity style={checkoutButton}>
-                    <Text style={checkoutTitle}>TOTAL {1000}$ CHECKOUT NOW</Text>
+                    <Text style={checkoutTitle}>THÊM SẢN PHẨM</Text>
                 </TouchableOpacity>
             </View>
         );

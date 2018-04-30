@@ -3,8 +3,7 @@ import React, { Component } from 'react';
 import { Navigator } from 'react-native';
 
 import StaffView from './StaffView';
-import ListDrink from '../Drink/ListDrink/ListDrink';
-import DetailDrink from '../Drink/DetailDrink/DetailDrink';
+import DetailStaff from '../Staff/DetailStaff/DetailStaff';
 
 class Staff extends Component {
     render() {
@@ -15,7 +14,7 @@ class Staff extends Component {
                 renderScene={(route, navigator) => {
                     switch (route.name) {
                         case 'STAFF_VIEW': return <StaffView navigator={navigator}  staffs={staffs}/>;
-                        default: return <DetailDrink navigator={navigator} />;
+                        default: return <DetailStaff navigator={navigator} staff={route.staff}/>;
                     }
                 }}
             />
